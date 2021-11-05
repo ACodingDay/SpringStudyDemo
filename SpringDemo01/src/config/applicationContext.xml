@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- bean 就是 Java对象，由 Spring来创建和管理 -->
+<!--    <bean name="hello" class="com.study.bean.Hello">-->
+    <!-- 这里的 name是 setName()方法中 set后面的 Name1，首字母要小写 -->
+<!--        <property name="name1" value="张三"/>-->
+<!--    </bean>-->
+
+    <!-- 导入其他 XML配置文件 -->
+    <import resource="beans.xml"/>
+    <import resource="autowire.xml"/>
+    <import resource="aop.xml"/>
+
+    <!-- 有参构造方法创建对象 -->
+    <bean id="hello1" name="h1 h2 h3" class="com.study.bean.Hello">
+        <!-- 参数列表中的对应类型 -->
+        <constructor-arg type="java.lang.String" value="李四"/>
+    </bean>
+    
+    <!-- 增加别名 -->
+    <alias name="hello1" alias="hi"/>
+
+    <!-- 由 Spring容器创建该类的实例对象，其中 id 表示文件中的唯一标识符 -->
+    <bean id="personDao" class="com.study.ioc.PersonDaoImpl" />
+    <bean id="personService" class="com.study.ioc.PersonServiceImpl">
+        <!-- 将 personDao实例注入 personService实例中 -->
+        <!-- 此处的name是setPersonDao()方法中的set后面的PersonDao，首字母要小写。
+           ref是指引用对象，填某个 bean的 id名称 -->
+        <property name="personDao" ref="personDao"/>
+    </bean>
+
+    <!-- 构造器实例化对象 -->
+    <bean id="people1" class="com.study.instance.People" />
+    <!-- 静态共厂类创建对象，如果有参数，就需要配置 constructor-arg 标签 -->
+    <bean id="people2" class="com.study.instance.MyBeanFactory" factory-method="createBean" />
+    <!-- 配置实例工厂 -->
+    <bean id="myBeanFactory2" class="com.study.instance.MyBeanFactory2" />
+    <!-- factory-bean属性指定一个实例工厂，factory-method属性确定使用工厂中的哪个方法 -->
+    <bean id="people3" factory-bean="myBeanFactory2" factory-method="createBean" />
+
+    <!-- 单例 -->
+<!--    <bean id="person1" class="com.study.scope.Person" scope="singleton"/>-->
+    <!-- 原型 -->
+    <bean id="person2" class="com.study.scope.Person" scope="prototype"/>
+
+    <!-- 使用context命名空间，通知spring扫描指定目录，进行注解的解析 -->
+    <context:component-scan base-package="com.study.annotation"/>
+
+</beans>

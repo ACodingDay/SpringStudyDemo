@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!-- 定义别名的规范就是对应包装类的类名首字母变为小写 -->
+        <package name="com.study.mybatis2.entity"/>
+    </typeAliases>
+    <!-- 引用映射文件 -->
+    <mappers>
+        <mapper resource="com/study/mybatis2/mapper/user-mapper.xml"/>
+    </mappers>
+</configuration>

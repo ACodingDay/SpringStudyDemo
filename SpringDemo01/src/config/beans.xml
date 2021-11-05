@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 地址类实例 -->
+    <bean id="address" class="com.study.bean.Address">
+        <property name="addr" value="广州市"/>
+    </bean>
+
+    <bean id="stu" class="com.study.bean.Student">
+        <!-- 常量注入 -->
+        <property name="name" value="张三"/>
+        <!-- bean 注入，其中的 ref 对应 bean的id -->
+        <property name="addr" ref="address"/>
+
+        <!-- 数组注入 -->
+        <property name="books">
+            <array>
+                <!-- 数组元素 -->
+                <value>《老人与海》</value>
+                <value>《中华上下五千年》</value>
+                <value>《活着》</value>
+                <value>《傲慢与偏见》</value>
+            </array>
+        </property>
+
+        <!-- List注入 -->
+        <property name="hobbies">
+            <list>
+                <value>羽毛球</value>
+                <value>音乐</value>
+                <value>美食</value>
+                <value>旅游</value>
+            </list>
+        </property>
+
+        <!-- Map注入 -->
+        <property name="cards">
+            <map>
+                <entry key="中国建设银行存储卡" value="123456"/>
+                <entry key="图书馆借书会员卡" value="2021066"/>
+            </map>
+        </property>
+
+        <!-- Set注入 -->
+        <property name="games">
+            <set>
+                <value>英雄联盟</value>
+                <value>王者荣耀</value>
+                <value>绝地求生</value>
+                <value>守望先锋</value>
+            </set>
+        </property>
+
+        <!-- Null注入 -->
+        <property name="girlFriendName">
+            <null/>
+        </property>
+
+        <!-- Properties 注入 -->
+        <property name="info">
+            <props>
+                <prop key="学号">201821314404</prop>
+                <prop key="性别">男</prop>
+                <prop key="年龄">20</prop>
+                <prop key="年薪">25W</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- P命名空间，使用 setter注入。P 就是 property 的意思 -->
+    <bean id="myHero" class="com.study.bean.Hero" p:name="无极大师" p:age="18"/>
+
+    <!-- C 命名空间，使用 构造方法注入。C 就是 constructor-arg 的意思 -->
+    <bean id="hero2" class="com.study.bean.Hero" c:heroName="nikou" c:heroAge="120"/>
+</beans>

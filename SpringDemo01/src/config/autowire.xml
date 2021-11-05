@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 自动装配 autowire 属性 -->
+    <!-- setGoodsDao() 方法中的 goodsDao，不是属性名 -->
+    <bean id="goodsDao" class="com.study.autowiring.GoodsDaoImpl"/>
+    <!-- 使用byType，一旦有相同类型的实现类，byType 就无法识别具体使用哪一个 -->
+<!--    <bean class="com.study.autowiring.GoodsDaoImpl2"/>-->
+
+    <!-- setGoodsService() 方法中的 goodsService -->
+    <!-- constructor 适用于有参数的构造方法 -->
+    <bean id="goodsService" class="com.study.autowiring.GoodsServiceImpl" autowire="constructor"/>
+    <!-- 这个 id 需要写，因为 getBean() 需要使用 -->
+    <bean id="goodsAction" class="com.study.autowiring.GoodsAction" autowire="byName"/>
+</beans>

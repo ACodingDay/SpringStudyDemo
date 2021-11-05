@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 使用 Spring 整合 mybatis，配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- com.mysql.cj.jdbc.Driver -->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <!-- 需要加上编码，确保中文显示正常 -->
+        <property name="url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+    <!-- 声明式事务配置 -->
+    <!-- 先配置事务管理器，依赖于数据源 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入DataSource -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 配置事务通知 -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!-- name 填写方法的名称，propagation 填写事务的传播行为类型 -->
+            <tx:method name="add" propagation="REQUIRED"/>
+            <tx:method name="delete" propagation="REQUIRED"/>
+            <tx:method name="update" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+            <!-- 只读，不会提交事务 -->
+            <tx:method name="get" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置 AOP -->
+    <aop:config>
+        <!-- 切入点 -->
+        <aop:pointcut id="txPointCut" expression="execution(* com.study.mybatis3.service.impl.*.*(..))"/>
+        <!-- 切面：将切入点与通知整合 -->
+        <aop:advisor pointcut-ref="txPointCut" advice-ref="txAdvice"/>
+    </aop:config>
+
+    <!-- 配置 sqlSessionFactory，它是线程安全的 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据源注入 sqlSessionFactory -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- mybatis-config.xml 的路径 -->
+        <property name="configLocation" value="classpath:com/study/mybatis3/mybatis-config.xml"/>
+    </bean>
+
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.study.mybatis3.dao.UserMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="userService" class="com.study.mybatis3.service.impl.UserServiceImpl">
+        <!-- 配置 userMapper -->
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+</beans>

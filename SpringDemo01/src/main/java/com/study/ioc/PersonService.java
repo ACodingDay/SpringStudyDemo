@@ -1,0 +1,8 @@
+package com.study.ioc;
+
+/**
+ * 模拟 服务层
+ */
+public interface PersonService {
+    public void addPerson();
+}
