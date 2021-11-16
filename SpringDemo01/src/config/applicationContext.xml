@@ -12,7 +12,6 @@
     <!-- 这里的 name是 setName()方法中 set后面的 Name1，首字母要小写 -->
 <!--        <property name="name1" value="张三"/>-->
 <!--    </bean>-->
-
     <!-- 导入其他 XML配置文件 -->
     <import resource="beans.xml"/>
     <import resource="autowire.xml"/>

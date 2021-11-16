@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * 创建 Action
+ * @author yyt
  */
 @Controller("personAction")
 public class PersonAction {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 /**
  * 创建 DAO 层接口的实现类
  * 注解 @Repository 用于将数据访问层（DAO层）的类标识为 Spring 中的 Bean
+ * @author yyt
  */
 @Repository("personDao2")
 public class PersonDaoImpl implements PersonDao{

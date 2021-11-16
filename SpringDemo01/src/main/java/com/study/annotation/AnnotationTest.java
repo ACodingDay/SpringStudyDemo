@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 测试类
+ * @author yyt
  */
 public class AnnotationTest {
     @Test

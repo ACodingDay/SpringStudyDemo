@@ -18,7 +18,7 @@ public class PersonServiceImpl implements PersonService {
     // 实现 PersonService接口的方法
     @Override
     public void addPerson() {
-        // 调用PersonDao中的add()方法
+        // 调用 PersonDao中的add()方法
         personDao.add();
         System.out.println("addPerson()执行了...");
     }
