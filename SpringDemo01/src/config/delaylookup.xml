@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- XML 文件中只配置 Cat，不配置 Dog -->
+    <bean id="cat" class="com.study.delayLookup.Cat">
+        <property name="name" value="喵喵"/>
+        <property name="age" value="2"/>
+    </bean>
+</beans>

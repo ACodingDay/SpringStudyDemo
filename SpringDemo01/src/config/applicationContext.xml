@@ -35,21 +35,25 @@
         <property name="personDao" ref="personDao"/>
     </bean>
 
-    <!-- 构造器实例化对象 -->
-    <bean id="people1" class="com.study.instance.People" />
+    <!-- People 对象 -->
+    <bean id="people1" class="com.study.instance.bean.People" />
     <!-- 静态共厂类创建对象，如果有参数，就需要配置 constructor-arg 标签 -->
-    <bean id="people2" class="com.study.instance.MyBeanFactory" factory-method="createBean" />
+    <bean id="people2" class="com.study.instance.PeopleStaticFactory" factory-method="createBean" />
     <!-- 配置实例工厂 -->
-    <bean id="myBeanFactory2" class="com.study.instance.MyBeanFactory2" />
+    <bean id="carFactory" class="com.study.instance.CarInstanceFactory" />
     <!-- factory-bean属性指定一个实例工厂，factory-method属性确定使用工厂中的哪个方法 -->
-    <bean id="people3" factory-bean="myBeanFactory2" factory-method="createBean" />
+    <bean id="car" factory-bean="carFactory" factory-method="createBean" />
 
     <!-- 单例 -->
-<!--    <bean id="person1" class="com.study.scope.Person" scope="singleton"/>-->
+    <bean id="child1" class="com.study.scope.bean.Child"/>
     <!-- 原型 -->
-    <bean id="person2" class="com.study.scope.Person" scope="prototype"/>
+    <bean id="person2" class="com.study.scope.bean.Person" scope="prototype"/>
 
     <!-- 使用context命名空间，通知spring扫描指定目录，进行注解的解析 -->
     <context:component-scan base-package="com.study.annotation"/>
 
+    <!-- XML 演示 Bean 的生命周期 -->
+    <bean id="cat2" class="com.study.lifecycle.initmethod.Cat" init-method="init" destroy-method="destroy">
+        <property name="name" value="阿猫"/>
+    </bean>
 </beans>

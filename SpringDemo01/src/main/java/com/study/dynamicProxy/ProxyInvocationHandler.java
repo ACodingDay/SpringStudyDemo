@@ -4,6 +4,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * @author lenovo
+ */
 public class ProxyInvocationHandler implements InvocationHandler {
     // 代理的目标:真实角色
     private Object target;
